@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'; 
-import LoginUi from './Login Ui/LoginUi';
+import Login from './Login /Login.js';
 
 ReactDOM.render( 
-    <LoginUi /> ,
+    <Login /> ,
   document.getElementById('root')
 );
  

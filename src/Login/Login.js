@@ -1,8 +1,8 @@
-import './LoginUi.css';
+import './Login.css';
 import profile from "./../image/a.jpg";
 import email from "./../image/email.jpg";
 import pass from "./../image/pass.png";
-function LoginUi() {
+function Login() {
   return (
     <div className="main">
      <div className="sub-main">
@@ -43,4 +43,4 @@ function LoginUi() {
   );
 }
 
-export default LoginUi;
+export default Login;
