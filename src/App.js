@@ -4,6 +4,7 @@ import ArmenMarTable from './ArmenMartirosyan/ArmenMarTable';
     
 
 function App() {
+
 	return (
 	<BrowserRouter>
 	  <Routes>
@@ -11,6 +12,7 @@ function App() {
 		<Route path="/ArmenMartirosyan" element={<ArmenMarTable />} />
       </Routes>
 	</BrowserRouter>
+  
 	);
 }
 
