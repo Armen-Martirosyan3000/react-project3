@@ -1,18 +1,19 @@
 import { BrowserRouter,  Routes, Route } from "react-router-dom";
 import Login from './Login/Login';
-import ArmenMarTable from './ArmenMartirosyan/ArmenMarTable';
+// import ArmenMarTable from './ArmenMartirosyan/ArmenMarTable';
     
 
-function App() {
+function App() { 
 
 	return (
+    
 	<BrowserRouter>
 	  <Routes>
         <Route path="/"  element={<Login />} />
-		<Route path="/ArmenMartirosyan" element={<ArmenMarTable />} />
+		{/* <Route path="/ArmenMartirosyan" element={<ArmenMarTable />} /> */}
       </Routes>
 	</BrowserRouter>
-  
+
 	);
 }
 
