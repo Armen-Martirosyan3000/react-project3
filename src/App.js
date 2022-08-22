@@ -1,14 +1,18 @@
-import React from "react";
-import "./style.css";
+import { BrowserRouter,  Routes, Route } from "react-router-dom";
+import Login from './Login/Login';
+import ArmenMarTable from './ArmenMartirosyan/ArmenMarTable';
+    
 
-export default function App() {
-  return (
-    <div>
-      <h1></h1>
-      <p></p>
-    </div>
-  );
+function App() {
+	return (
+	<BrowserRouter>
+	  <Routes>
+        <Route path="/"  element={<Login />} />
+		<Route path="/ArmenMartirosyan" element={<ArmenMarTable />} />
+      </Routes>
+	</BrowserRouter>
+	);
 }
 
 
-
+export default App;
