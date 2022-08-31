@@ -4,7 +4,7 @@ import Login from './Login/Login';
 import ArmenMarTable from './ArmenMartirosyan/ArmenMarTable';
 import Table from "./Armengh/Table";
 import Hasmiktable from './Hasmik/Hasmiktable';
-
+import BellaTable from './Bella/BellaTable';
 
 
 
@@ -19,7 +19,7 @@ function App() {
         <Route path="/"  element={<Login />} />
 		    <Route path="/ArmenMartirosyan" element={<ArmenMarTable />} />
 			<Route path="/Armengh" element={<Table />} />
-			{/* <Route path="/Bella"   element={< />} /> */}
+			<Route path="/Bella"   element={<BellaTable />} /> 
 			<Route path="/Hasmik"  element={< Hasmiktable/>} />
 			{/* <Route path="/Slava"   element={< />} /> */}
       </Routes>

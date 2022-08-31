@@ -36,7 +36,7 @@ let array = [
   {
       login: "Bella",
       parol: "Bella",
-      path: "",
+      path: "/Bella",
   },
 
 ];
