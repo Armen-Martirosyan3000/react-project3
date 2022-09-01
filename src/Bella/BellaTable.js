@@ -75,8 +75,8 @@ console.log('userData: ', userData)
                   <td className='td3'>{user.userSurname}</td>
                   <td className='td3'>{user.userSalary}</td>
                   <td>
-                    <div>
-                      <button className='edit-action' onClick={() => handleEditClick(user, index)}>edit</button>
+                    <div className='btn3'>
+                      <button className='edit-action3' onClick={() => handleEditClick(user, index)}>edit</button>
                       <button className='remove-action3' onClick={() => handleRemoveClick(index)}>remove</button>
                     </div>
                   </td>
