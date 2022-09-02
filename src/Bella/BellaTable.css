@@ -29,9 +29,12 @@
 }
 
 .button3 {
-  width: 100px;
-  background-color:wheat;
-  margin:0 10px;
+  width: 80px;
+  background-color: rgb(61, 121, 233) ;
+  margin:0 1px;
+  border: 1px solid  rgb(19, 236, 128);
+  color: wheat ;
+  padding: 0 20px;
 }
 
 .table3 {
@@ -62,7 +65,20 @@
 .edit-action3 {
   margin: 0 5px;
   padding: 0 10px;
+  color: black;
+  border: 1px solid rgb(61, 121, 233); 
+  background-color:white;
+  
 }
+.remove-action3 {
+  margin: 0 5px;
+  padding: 0 10px;
+  color: black;
+  border: 1px solid rgb(61, 121, 233);
+  background-color:white;
+
+}
+
 
 
 
