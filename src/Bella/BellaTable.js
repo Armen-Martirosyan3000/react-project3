@@ -1,5 +1,6 @@
 import React,{ useState } from 'react';
 import './BellaTable.css';
+import { Link } from "react-router-dom";
 
 const initialValues = {
   userName: '',
@@ -113,6 +114,9 @@ console.log('userData: ', userData)
               <button className='button3' disabled={!isFilledFields}type="submit">{editableUserData.isEdit ? 'Edit' : 'Add'}</button>
             </div>
          </form>
+         <Link  to="/">
+                <button className="home3" type="button" >Home</button>
+              </Link>
         </div>
        </div>
       

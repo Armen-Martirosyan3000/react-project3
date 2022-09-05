@@ -30,7 +30,7 @@
 
 .button3 {
   width: 80px;
-  background-color: rgb(61, 121, 233) ;
+  background-color: rgb(115, 162, 248) ;
   margin:0 1px;
   border: 1px solid  rgb(19, 236, 128);
   color: wheat ;
@@ -78,6 +78,18 @@
   background-color:white;
 
 }
+.home3 {
+  width: 80px;
+  background-color: rgb(115, 162, 248) ;
+  margin:0 1px;
+  border: 1px solid  rgb(19, 236, 128);
+  color: wheat ;
+  padding: 0 20px;
+  margin-left: 70px;
+}
+
+
+
 
 
 
