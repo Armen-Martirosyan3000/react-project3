@@ -1,7 +1,8 @@
 // import React from "react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ArmenMarTable.css";
 import { Link } from "react-router-dom";
+
 
 
 // initial state-սկզբնական վիճակն է
@@ -11,11 +12,17 @@ const initialValues = {
   userSalary: ""
 }
 function ArmenMarTable() {
+  // creat։ fetch-ով հարցում ենք ուղարկում Backend,պատասխանը json-ով հետ է գալիս(.then(response=>response.json()), որից հետո եկած պատասխանը դնում ենք data-ի մեջ(.then(data=>setUsers(data))) և փոխանցում ենք setUsers-ին
+  useEffect(()=>{
+    fetch(`http://localhost:3200/workers`)
+    .then(response=>response.json())
+    .then(data=>setUsers(data))
+  })
   const [userData, setUserData] = useState(initialValues)//userData is passed initialValues ​​as the initial value- userData-ին որպես սկզբնական արժեք փոխանցվում է initialValues-ը
   const [users, setUsers] = useState([])//storing a list of users in an empty array-օգտատերերի ցուցակի պահպանում  դատարկ զանգվածում
   const [editTableUserData, setEditTableUseData] = useState({//storing information about changing users-փոփոխվող օգտատերերի մասին տեղեկատվության պահպանում
     isEdit: false,
-    userIndex: null
+    userIndex: null//փոփոխվող օգտատերերի 0-ական վիճակն է
   });
 
   // Remove button operation
@@ -75,12 +82,13 @@ function ArmenMarTable() {
               {/* մեր ավելացվող user(օգտագործող)-ներին հասցեագրելու համար ենք ստեղծում tbody-ն */}
               <tbody>
                 {users.map((user, index) => (//Adding users-user-ների ավելացնում տաբլիցայի տակ add կնոպկայով
-                  <tr>
+                  <tr key={index}>
                     {/*Defining user serial numbers-user-ների հերթական համարների սահմանում */}
-                    <td className="td1">{index + 1}</td>
-                    <td className="td1">{user.userName}</td>
-                    <td className="td1">{user.userSurname}</td>
-                    <td className="td1">{user.userSalary}</td>
+                    {/* Քանի որ front-ը միացրել եմ back-ին 87-ից 90 տեղերի user.id, user.name և մյուսների անունները պետք է համապատասխանեն back-ի հետ, որ ծրագիրը ճիշտ աշխատի*/}
+                    <td className="td1">{user.id}</td>
+                    <td className="td1">{user.name}</td>
+                    <td className="td1">{user.surname}</td>
+                    <td className="td1">{user.salary}</td>
                     <td>
                       <div>
                         <button className="edit-action1" onClick={() => handleEditСlick(user, index)}>Edit</button>

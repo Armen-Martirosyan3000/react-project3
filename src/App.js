@@ -21,7 +21,6 @@ function App() {
 			<Route path="/Armengh" element={<Table />} />
 			<Route path="/Bella"   element={<BellaTable />} /> 
 			<Route path="/Hasmik"  element={< Hasmiktable/>} />
-			{/* <Route path="/Slava"   element={< />} /> */}
       </Routes>
 	</BrowserRouter>
 	);

@@ -22,11 +22,6 @@ let array = [
       
   },
   {
-      login: "Slava",
-      parol: "Slava",
-      path: "",
-  },
-  {
       login: "ArmenG",
       parol: "ArmenG",
       path: "/Armengh",
