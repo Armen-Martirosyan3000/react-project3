@@ -1,23 +1,17 @@
 // import React from "react";
 import React, { useEffect, useState } from "react";
 import "./ArmenMarTable.css";
+import axios from "axios";
 import { Link } from "react-router-dom";
-
-
 
 // initial state-սկզբնական վիճակն է
 const initialValues = {
-  userName: "",
-  userSurname: "",
-  userSalary: ""
+  name: "",
+  surname: "",
+  salary: ""
 }
+
 function ArmenMarTable() {
-  // creat։ fetch-ով հարցում ենք ուղարկում Backend,պատասխանը json-ով հետ է գալիս(.then(response=>response.json()), որից հետո եկած պատասխանը դնում ենք data-ի մեջ(.then(data=>setUsers(data))) և փոխանցում ենք setUsers-ին
-  useEffect(()=>{
-    fetch(`http://localhost:3200/workers`)
-    .then(response=>response.json())
-    .then(data=>setUsers(data))
-  })
   const [userData, setUserData] = useState(initialValues)//userData is passed initialValues ​​as the initial value- userData-ին որպես սկզբնական արժեք փոխանցվում է initialValues-ը
   const [users, setUsers] = useState([])//storing a list of users in an empty array-օգտատերերի ցուցակի պահպանում  դատարկ զանգվածում
   const [editTableUserData, setEditTableUseData] = useState({//storing information about changing users-փոփոխվող օգտատերերի մասին տեղեկատվության պահպանում
@@ -25,15 +19,17 @@ function ArmenMarTable() {
     userIndex: null//փոփոխվող օգտատերերի 0-ական վիճակն է
   });
 
-  // Remove button operation
-  const handleRemoveClick = (index) => {
-    setUsers(users.filter((user, userIndex) => userIndex !== index));
-  }
+  //READ(GET)-Front-ի միացում backend-ին, fetch-ով հարցում ենք ուղարկում backend,պատասխանը json-ով հետ է գալիս(.then(response=>response.json()), որից հետո եկած պատասխանը դնում ենք data-ի մեջ(.then(data=>setUsers(data))) և setUsers-ով փոխանցում ենք users-ին
+  useEffect(() => {
+    fetch(`http://localhost:3200/workers`)
+      .then(response => response.json())
+      .then(data => setUsers(data))
+  });
 
   //filling in all Inputs and only then activating the add button-բոլոր Input-ների լրացում և միայն այդ դեպքում add կոճակի ակտիվացում 
-  const isFilledFields = userData.userName && userData.userSurname && userData.userSalary
+  const isFilledFields = userData.name && userData.surname && userData.salary
 
-  //Add button operation
+  //Add operation
   const handleSubmitUser = (e) => {
     e.preventDefault()
 
@@ -50,16 +46,47 @@ function ArmenMarTable() {
           isEdit: false, // սա նշանակում է փոփոխվող user-ի նախկին տվյալները չպահպանել, զրոյացնել
           userIndex: null //փոփոխվող user-ի index-ի զրոյացում  
         })
-      } else {//adding a new user-...prevState-ին(նախկին վիճակ) ավելացվում է նոր user-ը
+        //UPDATE-backend-ի հետ կապ
+        fetch(`http://localhost:3200/workers/${editedData[editTableUserData.userIndex].id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userData)
+        })
+      } else {
+        //CREATE-backend-ի հետ կապ
+        fetch(`http://localhost:3200/workers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userData)
+        })
+        //adding a new user-...prevState-ին(նախկին վիճակ) ավելացվում է նոր user-ը
         setUsers((prevState) => [...prevState, userData]);
       }
       setUserData(initialValues)
     }
   }
-  // Clean button operation
+
+  // DELETE(remove) operation-backend-ի հետ կապ
+  const getData = () => {
+    axios.get(`http://localhost:3200/workers`)
+      .then((getData) => {
+        setUsers(getData.data);
+      })
+  }
+  const handleRemoveClick = (id) => {
+    axios.delete(`http://localhost:3200/workers/${id}`)
+      .then(() => {
+        getData();
+      })
+  }
+  // Clean operation
   const handleCleanClick = () => setUserData(initialValues);
 
-  // Edit button operation
+  // Edit operation
   const handleEditСlick = (data, index) => {// այս ֆունկցիան ընդունում է ընթացիկ user-ին և իր index-ը
     setUserData(data);
     setEditTableUseData({
@@ -84,15 +111,14 @@ function ArmenMarTable() {
                 {users.map((user, index) => (//Adding users-user-ների ավելացնում տաբլիցայի տակ add կնոպկայով
                   <tr key={index}>
                     {/*Defining user serial numbers-user-ների հերթական համարների սահմանում */}
-                    {/* Քանի որ front-ը միացրել եմ back-ին 87-ից 90 տեղերի user.id, user.name և մյուսների անունները պետք է համապատասխանեն back-ի հետ, որ ծրագիրը ճիշտ աշխատի*/}
-                    <td className="td1">{user.id}</td>
+                    <td className="td1">{index + 1}</td>
                     <td className="td1">{user.name}</td>
                     <td className="td1">{user.surname}</td>
                     <td className="td1">{user.salary}</td>
                     <td>
                       <div>
                         <button className="edit-action1" onClick={() => handleEditСlick(user, index)}>Edit</button>
-                        <button className="remove-action1" onClick={() => handleRemoveClick(index)}>Remove</button>
+                        <button className="remove-action1" onClick={() => handleRemoveClick(user.id)}>Delete</button>
                       </div>
                     </td>
                   </tr>
@@ -108,23 +134,23 @@ function ArmenMarTable() {
                 //previous state- ...prevState-ը նախորդ վիճակն է 
                 onChange={(e) => setUserData((prevState) => ({
                   ...prevState,
-                  userName: e.target.value //e.target.value-սա ընթացիկ թարմացված արժեքն է օբյեկտի 
+                  name: e.target.value //e.target.value-սա ընթացիկ թարմացված արժեքն է օբյեկտի 
                 }))}
-                value={userData.userName}
+                value={userData.name}
               />
               <input className="input1" placeholder="Write your surname"
                 onChange={(e) => setUserData((prevState) => ({
                   ...prevState,
-                  userSurname: e.target.value
+                  surname: e.target.value
                 }))}
-                value={userData.userSurname}
+                value={userData.surname}
               />
               <input className="input1" placeholder="Write your salary"
                 onChange={(e) => setUserData((prevState) => ({
                   ...prevState,
-                  userSalary: e.target.value
+                  salary: e.target.value
                 }))}
-                value={userData.userSalary}
+                value={userData.salary}
               />
               <div className="buttons-wrapper1">
                 {/* Clean button */}
