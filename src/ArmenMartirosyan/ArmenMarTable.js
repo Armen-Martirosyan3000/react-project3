@@ -19,7 +19,7 @@ function ArmenMarTable() {
     userIndex: null//փոփոխվող օգտատերերի 0-ական վիճակն է
   });
 
-  //READ(GET)-Front-ի միացում backend-ին, fetch-ով հարցում ենք ուղարկում backend,պատասխանը json-ով հետ է գալիս(.then(response=>response.json()), որից հետո եկած պատասխանը դնում ենք data-ի մեջ(.then(data=>setUsers(data))) և setUsers-ով փոխանցում ենք users-ին
+  //READ(GET)-front-ի միացում backend-ին, fetch-ով հարցում ենք ուղարկում backend,պատասխանը json-ով հետ է գալիս(.then(response=>response.json()), որից հետո եկած պատասխանը դնում ենք data-ի մեջ(.then(data=>setUsers(data))) և setUsers-ով փոխանցում ենք users-ին
   useEffect(() => {
     fetch(`http://localhost:3200/workers`)
       .then(response => response.json())
@@ -78,7 +78,7 @@ function ArmenMarTable() {
       })
   }
   const handleRemoveClick = (id) => {
-    axios.delete(`http://localhost:3200/workers/${id}`)
+    axios.delete(`http://localhost:3200/workers/${id}`)//axios-ը նույն fetch-ի ֆունկցիան է իրականացնում 
       .then(() => {
         getData();
       })
