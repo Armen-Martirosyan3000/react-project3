@@ -63,7 +63,7 @@ function ArmenMarTable() {
           },
           body: JSON.stringify(userData)
         })
-        //adding a new user-...prevState-ին(նախկին վիճակ) ավելացվում է նոր user-ը
+        //adding a new user-...prevState-ին(նախկին վիճակ) ավելացվում է նոր user-ը:
         setUsers((prevState) => [...prevState, userData]);
       }
       setUserData(initialValues)
