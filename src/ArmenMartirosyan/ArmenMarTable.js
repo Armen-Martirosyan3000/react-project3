@@ -24,7 +24,7 @@ function ArmenMarTable() {
     fetch(`http://localhost:3200/workers`)
       .then(response => response.json())
       .then(data => setUsers(data))
-  });
+  }, []);
 
   //filling in all Inputs and only then activating the add button-բոլոր Input-ների լրացում և միայն այդ դեպքում add կոճակի ակտիվացում 
   const isFilledFields = userData.name && userData.surname && userData.salary
@@ -52,7 +52,7 @@ function ArmenMarTable() {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(userData)
+          body: JSON.stringify({ userData })
         })
       } else {
         //CREATE-backend-ի հետ կապ
@@ -61,7 +61,8 @@ function ArmenMarTable() {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(userData)
+          body:
+            JSON.stringify({ userData1: userData })// քանի որ այս CRUD-ն ու REDUX-SAGA-ի CRUD-ը միացված են նույն բեքենդին, այդ պատճառով այստեղ ավելացվել է(userData1 բանալին) սա՝ {userData1:userData} որ համապատասխանի բեքենդի req.body.userData1-ի հետ
         })
         //adding a new user-...prevState-ին(նախկին վիճակ) ավելացվում է նոր user-ը:
         setUsers((prevState) => [...prevState, userData]);
